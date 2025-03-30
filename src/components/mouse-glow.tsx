@@ -1,10 +1,18 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { useTheme } from 'next-themes';
 
 export const MouseGlowCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouse = useRef({ x: -1000, y: -1000 });
+  const themeRef = useRef<'light' | 'dark' | undefined>('dark');
+
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    themeRef.current = resolvedTheme as 'light' | 'dark' | undefined;
+  }, [resolvedTheme]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -40,6 +48,8 @@ export const MouseGlowCanvas: React.FC = () => {
       ctx.clearRect(0, 0, width, height);
 
       const { x, y } = mouse.current;
+      const isDark = themeRef.current === 'dark';
+      const glowColor = isDark ? [255, 255, 255] : [0, 0, 0];
 
       const rings = [
         { radius: 200, alpha: 0.04 },
@@ -50,8 +60,9 @@ export const MouseGlowCanvas: React.FC = () => {
       ];
 
       rings.forEach(({ radius, alpha }) => {
+        const [r, g, b] = glowColor;
         const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-        gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha})`);
         gradient.addColorStop(1, 'transparent');
 
         ctx.fillStyle = gradient;

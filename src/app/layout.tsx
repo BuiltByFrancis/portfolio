@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/providers/theme';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { MouseGlowCanvas } from '@/components/mouse-glow';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,6 +31,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
           {children}
           <ThemeToggle className="fixed right-10 bottom-10 z-50 hidden xl:flex" />
+          <MouseGlowCanvas />
         </ThemeProvider>
       </body>
     </html>

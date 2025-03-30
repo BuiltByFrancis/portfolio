@@ -2,13 +2,13 @@
 
 import React from 'react';
 import { useTheme } from 'next-themes';
+import { useIsClient } from '@uidotdev/usehooks';
 import { Button } from './ui/button';
 import { Moon, Sun } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useIsClient } from '@uidotdev/usehooks';
 
 export const ThemeToggle: React.FC<{ className?: string }> = ({ className }) => {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const isClient = useIsClient();
 
   if (!isClient) {
@@ -22,11 +22,11 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className }) => 
       size="icon"
       className={cn(
         className,
-        'border-accent rounded-full border-2 p-2 transition-all motion-reduce:transition-none'
+        'border-accent rounded-full border-2 p-2 transition-all hover:cursor-pointer motion-reduce:transition-none'
       )}
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
     >
-      {theme === 'dark' ? <Moon /> : <Sun />}
+      {resolvedTheme === 'dark' ? <Moon /> : <Sun />}
     </Button>
   );
 };

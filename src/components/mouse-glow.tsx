@@ -52,11 +52,11 @@ export const MouseGlowCanvas: React.FC = () => {
       const glowColor = isDark ? [255, 255, 255] : [0, 0, 0];
 
       const rings = [
-        { radius: 200, alpha: 0.04 },
-        { radius: 400, alpha: 0.025 },
-        { radius: 700, alpha: 0.015 },
-        { radius: 1100, alpha: 0.008 },
-        { radius: 1600, alpha: 0.005 },
+        { radius: 250, alpha: 0.025 },
+        { radius: 500, alpha: 0.015 },
+        { radius: 850, alpha: 0.008 },
+        { radius: 1300, alpha: 0.005 },
+        { radius: 1800, alpha: 0.003 },
       ];
 
       rings.forEach(({ radius, alpha }) => {
